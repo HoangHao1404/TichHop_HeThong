@@ -1,0 +1,11 @@
+CustomerID,Name,Email,Phone,Address
+C001,Nguyen Van A,a@gmail.com,0912345678,Ha Noi
+C002,Tran Thi B,b_at_gmail.com,0834567890,Da Nang
+C003,Le Van C,c@gmail.com,01234,HCM
+C004,Pham Thi D,d@gmail.com,0987654321,Can Tho
+C005,Doan Van E,,0911111111,Binh Duong
+C006,Le Minh F,f@gmail,0909090909,Ha Noi
+C007,Nguyen Khang G,g@gmail.com,notaphone,Hue
+C008,Hoang Bao H,h@gmail.com,0988888888,Ha Noi
+C009,Tran Quang I,i@gmail.com,0900000000,Da Nang
+C010,Pham Nhu J,j@gmail.com,0999999999,Ha Long

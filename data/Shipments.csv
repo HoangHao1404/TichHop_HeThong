@@ -1,0 +1,11 @@
+ShipmentID,OrderID,ShipperName,ShipDate,DeliveryStatus
+SHP001,DH001,GHTK,2025-09-02,Delivered
+SHP002,DH002,ViettelPost,2025-09-03,Pending
+SHP003,DH003,J&T Express,2025-09-04,Delivered
+SHP004,DH004,GHN,2025-09-05,Cancelled
+SHP005,DH005,GHTK,2025-09-06,Delivered
+SHP006,DH006,ViettelPost,2025-13-06,Delivered
+SHP007,DH007,J&T Express,2025-09-08,Unknown
+SHP008,DH008,GHN,2025-09-08,Delivered
+SHP009,DH009,GHTK,2025-09-09,Pending
+SHP010,DH010,FakeShipper,,Delivered
