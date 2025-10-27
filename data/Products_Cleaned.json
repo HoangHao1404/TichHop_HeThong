@@ -1,0 +1,68 @@
+[
+  {
+    "ProductID": "P001",
+    "Name": "Áo thun",
+    "CategoryID": "C01",
+    "SupplierID": "S01",
+    "StockQuantity": 100,
+    "Price": 150000,
+    "ImportedAt": "2025-10-25 10:28:04",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "ProductID": "P002",
+    "Name": "Điện thoại",
+    "CategoryID": "C02",
+    "SupplierID": "S02",
+    "StockQuantity": 50,
+    "Price": 250000,
+    "ImportedAt": "2025-10-25 10:28:04",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "ProductID": "P006",
+    "Name": "Bàn phím",
+    "CategoryID": "C03",
+    "SupplierID": "S03",
+    "StockQuantity": 70,
+    "Price": 300000,
+    "ImportedAt": "2025-10-25 10:28:04",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "ProductID": "P008",
+    "Name": "Áo khoác",
+    "CategoryID": "C01",
+    "SupplierID": "S01",
+    "StockQuantity": 120,
+    "Price": 350000,
+    "ImportedAt": "2025-10-25 10:28:04",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "ProductID": "P009",
+    "Name": "Điện thoại",
+    "CategoryID": "C02",
+    "SupplierID": "S99",
+    "StockQuantity": 40,
+    "Price": 250000,
+    "ImportedAt": "2025-10-25 10:28:04",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "ProductID": "P003",
+    "Name": "Tai nghe",
+    "CategoryID": "C03",
+    "SupplierID": "S03",
+    "StockQuantity": 0,
+    "Price": 90000,
+    "ImportedAt": "2025-10-25 10:28:04",
+    "Status": "pending",
+    "ErrorMessage": null
+  }
+]
