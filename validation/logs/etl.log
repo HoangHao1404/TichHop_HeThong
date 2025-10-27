@@ -175,3 +175,128 @@ Payments:
   ✅ Hợp lệ: 7
   ❌ Lỗi: 3
 -----------------------------
+=============================
+📊 ETL VALIDATION SUMMARY
+=============================
+Orders:
+  Hợp lệ: 5
+  Lỗi: 5
+Products:
+  Hợp lệ: 6
+  Lỗi: 4
+Payments:
+  Hợp lệ: 7
+  Lỗi: 3
+-----------------------------
+=============================
+📊 ETL VALIDATION SUMMARY
+=============================
+Orders:
+  Hợp lệ: 5
+  Lỗi: 5
+Products:
+  Hợp lệ: 6
+  Lỗi: 4
+Payments:
+  Hợp lệ: 7
+  Lỗi: 3
+Customers:
+  Hợp lệ: 0
+  Lỗi: 10
+-----------------------------
+=============================
+📊 ETL VALIDATION SUMMARY
+=============================
+Orders:
+  Hợp lệ: 5
+  Lỗi: 5
+Products:
+  Hợp lệ: 6
+  Lỗi: 4
+Payments:
+  Hợp lệ: 7
+  Lỗi: 3
+Customers:
+  Hợp lệ: 0
+  Lỗi: 10
+-----------------------------
+=============================
+📊 ETL VALIDATION SUMMARY
+=============================
+Orders:
+  Hợp lệ: 5
+  Lỗi: 5
+Products:
+  Hợp lệ: 6
+  Lỗi: 4
+Payments:
+  Hợp lệ: 7
+  Lỗi: 3
+Customers:
+  Hợp lệ: 0
+  Lỗi: 10
+-----------------------------
+=============================
+📊 ETL VALIDATION SUMMARY
+=============================
+Orders:
+  Hợp lệ: 5
+  Lỗi: 5
+Products:
+  Hợp lệ: 6
+  Lỗi: 4
+Payments:
+  Hợp lệ: 7
+  Lỗi: 3
+Customers:
+  Hợp lệ: 0
+  Lỗi: 10
+-----------------------------
+=============================
+📊 ETL VALIDATION SUMMARY
+=============================
+Orders:
+  Hợp lệ: 5
+  Lỗi: 5
+Products:
+  Hợp lệ: 6
+  Lỗi: 4
+Payments:
+  Hợp lệ: 7
+  Lỗi: 3
+Customers:
+  Hợp lệ: 0
+  Lỗi: 10
+-----------------------------
+=============================
+📊 ETL VALIDATION SUMMARY
+=============================
+Orders:
+  Hợp lệ: 5
+  Lỗi: 5
+Products:
+  Hợp lệ: 6
+  Lỗi: 4
+Payments:
+  Hợp lệ: 7
+  Lỗi: 3
+Customers:
+  Hợp lệ: 5
+  Lỗi: 5
+-----------------------------
+=============================
+📊 ETL VALIDATION SUMMARY
+=============================
+Orders:
+  Hợp lệ: 5
+  Lỗi: 5
+Products:
+  Hợp lệ: 6
+  Lỗi: 4
+Payments:
+  Hợp lệ: 7
+  Lỗi: 3
+Customers:
+  Hợp lệ: 5
+  Lỗi: 5
+-----------------------------

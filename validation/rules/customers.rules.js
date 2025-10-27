@@ -1,4 +1,4 @@
-import { regexRules, logicRules } from "./base.rules";
+import { regexRules, logicRules } from "./base.rules.js";
 export const customerRules = {
     CustomerID: [
         (v) => regexRules.customerID.test(v),
@@ -7,9 +7,21 @@ export const customerRules = {
     Name: [
         logicRules.notNull,
         (v) => logicRules.minLength(v, 2),
-        (v) => logicRules.name.test(v)
+        (v) => regexRules.name.test(v)
      ],
-    Email: [],
-    Phone: [],
-    Address: []
+    Email: [
+        (v) => regexRules.email.test(v),
+        logicRules.notNull
+    ],
+    Phone: [
+        (v)=>regexRules.phone.test(v),
+        logicRules.notNull,
+
+    ],
+    Address: [
+        logicRules.notNull,
+        (v) => regexRules.address.test(v),
+        (v) =>logicRules.minLength(v,2),
+        logicRules.isString
+    ]
 }

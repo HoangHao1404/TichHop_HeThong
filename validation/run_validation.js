@@ -17,15 +17,18 @@ console.log("Đang đọc dữ liệu từ Staging...");
 const orders = await db.all("SELECT * FROM Orders_Staging");
 const products = await db.all("SELECT * FROM Products_Staging");
 const payments = await db.all("SELECT * FROM  Payments_Staging");
+const customers = await db.all("SELECT * FROM Customers_Staging");
 
 console.log(`Orders_Staging: ${orders.length} dòng`);
 console.log(`Products_Staging: ${products.length} dòng`);
 console.log(`Payments_Staging: ${payments.length} dòng`);
+console.log(`Customers_Staging: ${customers.length} dòng`);
 
 // 3. Tạo validator cho từng bảng
 const orderValidator = new Validator("orders");
 const productValidator = new Validator("products");
 const paymentValidator = new Validator("payments");
+const customerValidator = new Validator("customers");
 
 // 4. Chạy validation
 console.log("Đang kiểm tra dữ liệu Orders...");
@@ -39,6 +42,10 @@ Validator.logErrors(productResult.errorRows);
 console.log("Đang kiểm tra dữ liệu Payments...");
 const paymentResult = paymentValidator.validateData(payments);
 Validator.logErrors(paymentResult.errorRows);
+
+console.log("Đang kiểm tra dữ liệu Payments...");
+const customerResult = customerValidator.validateData(customers);
+Validator.logErrors(customerResult.errorRows);
 // 5. Ghi dữ liệu hợp lệ ra file JSON (tạm thời)
 if (!fs.existsSync("./data")) fs.mkdirSync("./data");
 fs.writeFileSync(
@@ -56,6 +63,12 @@ fs.writeFileSync(
   JSON.stringify(paymentResult.validRows, null, 2),
   "utf8"
 );
+
+fs.writeFileSync(
+  "./data/Customers_Cleaned.json",
+  JSON.stringify(customerResult.validRows, null, 2),
+  "utf8"
+);
 // 6. Ghi log tổng kết
 const summary = `
 =============================
@@ -70,6 +83,9 @@ Products:
 Payments:
   Hợp lệ: ${paymentResult.validRows.length}
   Lỗi: ${paymentResult.errorRows.length}
+Customers:
+  Hợp lệ: ${customerResult.validRows.length}
+  Lỗi: ${customerResult.errorRows.length}
 -----------------------------`
 ;
 fs.appendFileSync("./validation/logs/etl.log", summary);
