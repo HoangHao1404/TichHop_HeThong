@@ -1,0 +1,31 @@
+import amqp from "amqplib";
+import sqlite3 from "sqlite3";
+import { open } from "sqlite";
+
+const queue = "warehouses_queue";
+const dbPath = "./db/warehouse.db";
+
+async function consumeWarehouses() {
+  const connection = await amqp.connect("amqp://localhost");
+  const channel = await connection.createChannel();
+  await channel.assertQueue(queue);
+  console.log(`👂 Đang lắng nghe: ${queue}`);
+
+  const db = await open({ filename: dbPath, driver: sqlite3.Database });
+
+  channel.consume(queue, async (msg) => {
+    if (msg !== null) {
+      const wh = JSON.parse(msg.content.toString());
+      console.log("📥 Nhận Warehouse:", wh);
+      const sql = `
+        INSERT INTO Warehouses_Staging
+        (WarehouseID, Location, Capacity)
+        VALUES (?, ?, ?)
+      `;
+      await db.run(sql, [wh.WarehouseID, wh.Location, wh.Capacity]);
+      channel.ack(msg);
+    }
+  });
+}
+
+consumeWarehouses().catch(console.error);
