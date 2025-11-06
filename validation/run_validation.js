@@ -72,7 +72,7 @@ fs.writeFileSync(
 // 6. Ghi log tổng kết
 const summary = `
 =============================
-📊 ETL VALIDATION SUMMARY
+ETL VALIDATION SUMMARY
 =============================
 Orders:
   Hợp lệ: ${orderResult.validRows.length}
