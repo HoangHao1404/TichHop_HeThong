@@ -6,29 +6,7 @@
     "Quantity": 2,
     "Price": 150000,
     "OrderDate": "2025-09-01",
-    "ImportedAt": "2025-10-26 11:10:13",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
-    "OrderID": "DH003",
-    "ProductID": "P999",
-    "CustomerID": "C003",
-    "Quantity": 3,
-    "Price": 300000,
-    "OrderDate": "2025-09-03",
-    "ImportedAt": "2025-10-26 11:10:13",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
-    "OrderID": "DH009",
-    "ProductID": "P003",
-    "CustomerID": "C008",
-    "Quantity": 2,
-    "Price": 100000,
-    "OrderDate": "2025-09-08",
-    "ImportedAt": "2025-10-26 11:10:13",
+    "ImportedAt": "2025-11-06 01:36:45",
     "Status": "pending",
     "ErrorMessage": null
   },
@@ -39,7 +17,29 @@
     "Quantity": 3,
     "Price": 400000,
     "OrderDate": "2025-09-09",
-    "ImportedAt": "2025-10-26 11:10:13",
+    "ImportedAt": "2025-11-06 01:36:45",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "OrderID": "DH003",
+    "ProductID": "P999",
+    "CustomerID": "C003",
+    "Quantity": 3,
+    "Price": 300000,
+    "OrderDate": "2025-09-03",
+    "ImportedAt": "2025-11-06 01:36:45",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "OrderID": "DH009",
+    "ProductID": "P003",
+    "CustomerID": "C008",
+    "Quantity": 2,
+    "Price": 100000,
+    "OrderDate": "2025-09-08",
+    "ImportedAt": "2025-11-06 01:36:45",
     "Status": "pending",
     "ErrorMessage": null
   },
@@ -50,7 +50,7 @@
     "Quantity": 1,
     "Price": 120000,
     "OrderDate": "2025-09-07",
-    "ImportedAt": "2025-10-26 11:10:13",
+    "ImportedAt": "2025-11-06 01:36:45",
     "Status": "pending",
     "ErrorMessage": null
   }

@@ -10,13 +10,15 @@ export const regexRules = {
   supplierID: /^(S)\d{2,4}$/, 
   paymentID: /^PM\d{3,5}$/,
   warehouseID:/^W\d{2,4}$/,    
-  
+  // Email & phone
   email: /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/,
   phone: /^(0|\+84)\d{9}$/,
-  
+  // Date & time
   date: /^\d{4}-\d{2}-\d{2}$/,
   datetime: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/,
+  // Text fields
   name: /^[A-Za-zÀ-ỹĐđ\s0-9']+$/,
+  upcase: /^\b[A-Z][a-z]*\b/,
   address: /^[A-Za-zÀ-ỹ0-9\s,.-]+$/,
 };
 // * Viết logic mở rộng 
