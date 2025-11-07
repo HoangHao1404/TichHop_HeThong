@@ -1,29 +1,10 @@
 // validation/rules/products.rules.js
-import { regexRules, logicRules } from "./base.rules.js";
+import { genericRules } from "./generic.rules.js";
 export const productRules = {
-  ProductID:[
-    (v) => regexRules.productID.test(v),
-    logicRules.notNull
-  ],
-  Name: [
-    logicRules.notNull,
-    (v) => logicRules.minLength(v, 2),
-    (v) => regexRules.name.test(v)
-  ],
-  CategoryID: [
-    (v) => regexRules.categoryID.test(v),
-    logicRules.notNull
-  ],
-  SupplierID: [
-    (v) => regexRules.supplierID.test(v),
-    logicRules.notNull
-  ],
-  StockQuantity: [
-    logicRules.isNumber,
-    logicRules.nonNegative
-  ],
-  Price: [
-    logicRules.isNumber,
-    logicRules.isPositive
-  ]
+  ProductID: genericRules.productID(),
+  Name: genericRules.name(),
+  CategoryID: genericRules.categoryID(),
+  SupplierID: genericRules.supplierID(),
+  StockQuantity: genericRules.nonNegativeNumber({ requireValue: true }),
+  Price: genericRules.positiveNumber({ requireValue: true })
 };
