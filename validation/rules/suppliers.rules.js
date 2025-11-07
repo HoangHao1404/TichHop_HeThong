@@ -1,5 +1,5 @@
 import { regexRules, logicRules } from "./base.rules.js";
-export const suppliersRule = {
+export const supplierRule = {
     SupplierID:[
         (v) => regexRules.supplierID.test(v),
         logicRules.notNull

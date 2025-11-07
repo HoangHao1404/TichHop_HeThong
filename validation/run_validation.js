@@ -18,22 +18,52 @@ const orders = await db.all("SELECT * FROM Orders_Staging");
 const products = await db.all("SELECT * FROM Products_Staging");
 const payments = await db.all("SELECT * FROM  Payments_Staging");
 const customers = await db.all("SELECT * FROM Customers_Staging");
+const shipments = await db.all("SELECT * FROM Shipments_Staging");
+const categories = await db.all("SELECT * FROM Categories_Staging");
+const suppliers = await db.all("SELECT * FROM Suppliers_Staging");
+const warehouses = await db.all("SELECT * FROM Warehouses_Staging");
 
 console.log(`Orders_Staging: ${orders.length} dòng`);
 console.log(`Products_Staging: ${products.length} dòng`);
 console.log(`Payments_Staging: ${payments.length} dòng`);
 console.log(`Customers_Staging: ${customers.length} dòng`);
+console.log(`Shipments_Staging: ${shipments.length} dòng`);
+console.log(`Categories_Staging: ${categories.length} dòng`);
+console.log(`Suppliers_Staging: ${suppliers.length} dòng`);
+console.log(`Warehouses_Staging: ${warehouses.length} dòng`);
 
 // 3. Tạo validator cho từng bảng
 const orderValidator = new Validator("orders");
 const productValidator = new Validator("products");
 const paymentValidator = new Validator("payments");
 const customerValidator = new Validator("customers");
+const shipmentValidator = new Validator("shipments");
+const categorieValidator = new Validator("categories");
+const supplierValidator = new Validator("suppliers");
+const warehouseValidator = new Validator("warehouses");
+
+
 
 // 4. Chạy validation
 console.log("Đang kiểm tra dữ liệu Orders...");
 const orderResult = orderValidator.validateData(orders);
 Validator.logErrors(orderResult.errorRows);
+
+console.log("Đang kiểm tra dữ liệu Shipments...");
+const shipmentResult = shipmentValidator.validateData(shipments);
+Validator.logErrors(shipmentResult.errorRows);
+
+console.log("Đang kiểm tra dữ liệu Categories...");
+const categorieResult = categorieValidator.validateData(categories);
+Validator.logErrors(categorieResult.errorRows);
+
+console.log("Đang kiểm tra dữ liệu Suppliers...");
+const supplierResult = supplierValidator.validateData(suppliers);
+Validator.logErrors(supplierResult.errorRows);
+
+console.log("Đang kiểm tra dữ liệu Warehouses...");
+const warehouseResult = warehouseValidator.validateData(warehouses);
+Validator.logErrors(warehouseResult.errorRows);
 
 console.log("Đang kiểm tra dữ liệu Products...");
 const productResult = productValidator.validateData(products);
@@ -69,6 +99,30 @@ fs.writeFileSync(
   JSON.stringify(customerResult.validRows, null, 2),
   "utf8"
 );
+
+fs.writeFileSync(
+  "./data/Shipments_Cleaned.json",
+  JSON.stringify(shipmentResult.validRows, null, 2),
+  "utf8"
+);
+
+fs.writeFileSync(
+  "./data/Categories_Cleaned.json",
+  JSON.stringify(categorieResult.validRows, null, 2),
+  "utf8"
+);
+
+fs.writeFileSync(
+  "./data/Suppliers_Cleaned.json",
+  JSON.stringify(supplierResult.validRows, null, 2),
+  "utf8"
+);
+
+fs.writeFileSync(
+  "./data/Warehouses_Cleaned.json",
+  JSON.stringify(warehouseResult.validRows, null, 2),
+  "utf8"
+);
 // 6. Ghi log tổng kết
 const summary = `
 =============================
@@ -86,6 +140,18 @@ Payments:
 Customers:
   Hợp lệ: ${customerResult.validRows.length}
   Lỗi: ${customerResult.errorRows.length}
+Shipments:
+  Hợp lệ: ${shipmentResult.validRows.length}
+  Lỗi: ${shipmentResult.errorRows.length}
+Categories:
+  Hợp lệ: ${categorieResult.validRows.length}
+  Lỗi: ${categorieResult.errorRows.length}
+Suppliers:
+  Hợp lệ: ${supplierResult.validRows.length}
+  Lỗi: ${supplierResult.errorRows.length}
+Warehouses:
+  Hợp lệ: ${warehouseResult.validRows.length}
+  Lỗi: ${warehouseResult.errorRows.length}
 -----------------------------`
 ;
 fs.appendFileSync("./validation/logs/etl.log", summary);

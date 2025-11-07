@@ -5,7 +5,7 @@ export const regexRules = {
   productID: /^P\d{3,5}$/,
   orderID: /^DH\d{3,5}$/,
   customerID: /^C\d{3,5}$/,
-  shipmentID: /^S\d{3,5}$/,
+  shipmentID: /^SHP\d{3,5}$/,
   categoryID: /^(C)\d{2,4}$/,      
   supplierID: /^(S)\d{2,4}$/, 
   paymentID: /^PM\d{3,5}$/,
