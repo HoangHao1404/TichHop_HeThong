@@ -1,161 +1,148 @@
-//* Chạy toàn bộ thư mục validation
 // validation/run_validation.js
-import { Validator } from "./validator.js";
+// * Chạy toàn bộ validation, tách dữ liệu sạch - lỗi và ghi log theo pipeline
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import { open } from "sqlite";
 import sqlite3 from "sqlite3";
-import fs from "fs";
-import { log } from "console";
 
-// 1. Mở kết nối đến DB Staging
-const db = await open({
-  filename: "./db/warehouse.db",
-  driver: sqlite3.Database,
+import { Validator } from "./validator.js";
+import { Transformer } from "./transformer.js";
+import { errorHandler } from "./errorHandler.js";
+
+const TABLES = [
+  { key: "orders", staging: "Orders_Staging", output: "Orders_Cleaned.json" },
+  { key: "products", staging: "Products_Staging", output: "Products_Cleaned.json" },
+  { key: "payments", staging: "Payments_Staging", output: "Payments_Cleaned.json" },
+  { key: "customers", staging: "Customers_Staging", output: "Customers_Cleaned.json" },
+  { key: "shipments", staging: "Shipments_Staging", output: "Shipments_Cleaned.json" },
+  { key: "categories", staging: "Categories_Staging", output: "Categories_Cleaned.json" },
+  { key: "suppliers", staging: "Suppliers_Staging", output: "Suppliers_Cleaned.json" },
+  { key: "warehouses", staging: "Warehouses_Staging", output: "Warehouses_Cleaned.json" },
+];
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT_DIR = path.resolve(__dirname, "..");
+const DATA_DIR = path.join(ROOT_DIR, "data");
+
+const ensureDataDirectory = () => {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+};
+
+const readTable = async (db, stagingName) => {
+  try {
+    return await db.all(`SELECT * FROM ${stagingName}`);
+  } catch (error) {
+    console.error(`[Validation] Không thể đọc ${stagingName}: ${error.message}`);
+    return null;
+  }
+};
+
+const persistValidRows = (tableConfig, rows) => {
+  const outputPath = path.join(DATA_DIR, tableConfig.output);
+  fs.writeFileSync(outputPath, JSON.stringify(rows, null, 2), "utf8");
+  return outputPath;
+};
+
+const run = async () => {
+  errorHandler.initialiseLogStore();
+  ensureDataDirectory();
+
+  const db = await open({
+    filename: path.join(ROOT_DIR, "db", "warehouse.db"),
+    driver: sqlite3.Database,
+  });
+
+  const summaryItems = [];
+
+  for (const table of TABLES) {
+    console.log(`[Validation] Đang đọc dữ liệu từ ${table.staging}...`);
+    const rows = await readTable(db, table.staging);
+    const summaryTitle = `${table.key.charAt(0).toUpperCase()}${table.key.slice(1)}`;
+
+    if (!rows) {
+      summaryItems.push({
+        title: summaryTitle,
+        total: 0,
+        valid: 0,
+        transformed: 0,
+        finalValid: 0,
+        invalid: 0,
+      });
+      continue;
+    }
+
+    console.log(`[Validation] ${table.staging}: ${rows.length} dòng`);
+
+    const validator = new Validator(table.key);
+    const { validRows, errorRows } = validator.validateData(rows);
+
+    errorHandler.appendGlobalErrors(table.key, errorRows, "validation");
+    errorHandler.writeTableErrorLog(table.key, errorRows, "validation");
+    errorHandler.writeInvalidSnapshot(table.key, errorRows, "validation");
+
+    let cleanedRows = [];
+    let transformInvalid = [];
+
+    if (errorRows.length) {
+      const transformer = new Transformer(table.key, validator);
+      const transformResult = transformer.transform(errorRows);
+      cleanedRows = transformResult.cleanedRows;
+      transformInvalid = transformResult.invalidRows;
+
+      if (cleanedRows.length) {
+        errorHandler.writeTransformLog(table.key, cleanedRows);
+        errorHandler.writeTransformSnapshot(table.key, cleanedRows);
+      } else {
+        errorHandler.writeTransformLog(table.key, []);
+        errorHandler.writeTransformSnapshot(table.key, []);
+      }
+
+      if (transformInvalid.length) {
+        errorHandler.appendGlobalErrors(table.key, transformInvalid, "transform");
+      }
+      errorHandler.writeTableErrorLog(table.key, transformInvalid, "transform");
+      errorHandler.writeInvalidSnapshot(table.key, transformInvalid, "transform");
+    } else {
+      errorHandler.writeTransformLog(table.key, []);
+      errorHandler.writeTransformSnapshot(table.key, []);
+      errorHandler.writeTableErrorLog(table.key, [], "transform");
+      errorHandler.writeInvalidSnapshot(table.key, [], "transform");
+    }
+
+    const transformedRows = cleanedRows.map((entry) => entry.transformedRow);
+    const finalValidRows = [...validRows, ...transformedRows];
+    persistValidRows(table, finalValidRows);
+
+    summaryItems.push({
+      title: summaryTitle,
+      total: rows.length,
+      valid: validRows.length,
+      transformed: transformedRows.length,
+      finalValid: finalValidRows.length,
+      invalid: transformInvalid.length,
+    });
+
+    console.log(
+      `[Validation] ${table.key}: hợp lệ ${validRows.length} | lỗi ${errorRows.length}`
+    );
+    if (errorRows.length) {
+      console.log(
+        `[Transform] ${table.key}: làm sạch thêm ${transformedRows.length} | còn lại ${transformInvalid.length}`
+      );
+    }
+  }
+
+  const summaryContent = errorHandler.writeSummary(summaryItems);
+  console.log(summaryContent);
+
+  await db.close();
+};
+
+run().catch((error) => {
+  console.error("[Validation] Pipeline thất bại:", error);
+  process.exitCode = 1;
 });
-
-// 2. Đọc dữ liệu từ các bảng Staging
-console.log("Đang đọc dữ liệu từ Staging...");
-const orders = await db.all("SELECT * FROM Orders_Staging");
-const products = await db.all("SELECT * FROM Products_Staging");
-const payments = await db.all("SELECT * FROM  Payments_Staging");
-const customers = await db.all("SELECT * FROM Customers_Staging");
-const shipments = await db.all("SELECT * FROM Shipments_Staging");
-const categories = await db.all("SELECT * FROM Categories_Staging");
-const suppliers = await db.all("SELECT * FROM Suppliers_Staging");
-const warehouses = await db.all("SELECT * FROM Warehouses_Staging");
-
-console.log(`Orders_Staging: ${orders.length} dòng`);
-console.log(`Products_Staging: ${products.length} dòng`);
-console.log(`Payments_Staging: ${payments.length} dòng`);
-console.log(`Customers_Staging: ${customers.length} dòng`);
-console.log(`Shipments_Staging: ${shipments.length} dòng`);
-console.log(`Categories_Staging: ${categories.length} dòng`);
-console.log(`Suppliers_Staging: ${suppliers.length} dòng`);
-console.log(`Warehouses_Staging: ${warehouses.length} dòng`);
-
-// 3. Tạo validator cho từng bảng
-const orderValidator = new Validator("orders");
-const productValidator = new Validator("products");
-const paymentValidator = new Validator("payments");
-const customerValidator = new Validator("customers");
-const shipmentValidator = new Validator("shipments");
-const categorieValidator = new Validator("categories");
-const supplierValidator = new Validator("suppliers");
-const warehouseValidator = new Validator("warehouses");
-
-
-
-// 4. Chạy validation
-console.log("Đang kiểm tra dữ liệu Orders...");
-const orderResult = orderValidator.validateData(orders);
-Validator.logErrors(orderResult.errorRows);
-
-console.log("Đang kiểm tra dữ liệu Shipments...");
-const shipmentResult = shipmentValidator.validateData(shipments);
-Validator.logErrors(shipmentResult.errorRows);
-
-console.log("Đang kiểm tra dữ liệu Categories...");
-const categorieResult = categorieValidator.validateData(categories);
-Validator.logErrors(categorieResult.errorRows);
-
-console.log("Đang kiểm tra dữ liệu Suppliers...");
-const supplierResult = supplierValidator.validateData(suppliers);
-Validator.logErrors(supplierResult.errorRows);
-
-console.log("Đang kiểm tra dữ liệu Warehouses...");
-const warehouseResult = warehouseValidator.validateData(warehouses);
-Validator.logErrors(warehouseResult.errorRows);
-
-console.log("Đang kiểm tra dữ liệu Products...");
-const productResult = productValidator.validateData(products);
-Validator.logErrors(productResult.errorRows);
-
-console.log("Đang kiểm tra dữ liệu Payments...");
-const paymentResult = paymentValidator.validateData(payments);
-Validator.logErrors(paymentResult.errorRows);
-
-console.log("Đang kiểm tra dữ liệu Payments...");
-const customerResult = customerValidator.validateData(customers);
-Validator.logErrors(customerResult.errorRows);
-// 5. Ghi dữ liệu hợp lệ ra file JSON (tạm thời)
-if (!fs.existsSync("./data")) fs.mkdirSync("./data");
-fs.writeFileSync(
-  "./data/Orders_Cleaned.json",
-  JSON.stringify(orderResult.validRows, null, 2),
-  "utf8"
-);
-fs.writeFileSync(
-  "./data/Products_Cleaned.json",
-  JSON.stringify(productResult.validRows, null, 2),
-  "utf8"
-);
-fs.writeFileSync(
-  "./data/Payments_Cleaned.json",
-  JSON.stringify(paymentResult.validRows, null, 2),
-  "utf8"
-);
-
-fs.writeFileSync(
-  "./data/Customers_Cleaned.json",
-  JSON.stringify(customerResult.validRows, null, 2),
-  "utf8"
-);
-
-fs.writeFileSync(
-  "./data/Shipments_Cleaned.json",
-  JSON.stringify(shipmentResult.validRows, null, 2),
-  "utf8"
-);
-
-fs.writeFileSync(
-  "./data/Categories_Cleaned.json",
-  JSON.stringify(categorieResult.validRows, null, 2),
-  "utf8"
-);
-
-fs.writeFileSync(
-  "./data/Suppliers_Cleaned.json",
-  JSON.stringify(supplierResult.validRows, null, 2),
-  "utf8"
-);
-
-fs.writeFileSync(
-  "./data/Warehouses_Cleaned.json",
-  JSON.stringify(warehouseResult.validRows, null, 2),
-  "utf8"
-);
-// 6. Ghi log tổng kết
-const summary = `
-=============================
-ETL VALIDATION SUMMARY
-=============================
-Orders:
-  Hợp lệ: ${orderResult.validRows.length}
-  Lỗi: ${orderResult.errorRows.length}
-Products:
-  Hợp lệ: ${productResult.validRows.length}
-  Lỗi: ${productResult.errorRows.length}
-Payments:
-  Hợp lệ: ${paymentResult.validRows.length}
-  Lỗi: ${paymentResult.errorRows.length}
-Customers:
-  Hợp lệ: ${customerResult.validRows.length}
-  Lỗi: ${customerResult.errorRows.length}
-Shipments:
-  Hợp lệ: ${shipmentResult.validRows.length}
-  Lỗi: ${shipmentResult.errorRows.length}
-Categories:
-  Hợp lệ: ${categorieResult.validRows.length}
-  Lỗi: ${categorieResult.errorRows.length}
-Suppliers:
-  Hợp lệ: ${supplierResult.validRows.length}
-  Lỗi: ${supplierResult.errorRows.length}
-Warehouses:
-  Hợp lệ: ${warehouseResult.validRows.length}
-  Lỗi: ${warehouseResult.errorRows.length}
------------------------------`
-;
-fs.appendFileSync("./validation/logs/etl.log", summary);
-console.log(summary);
-
-// 7. Đóng DB
-await db.close();

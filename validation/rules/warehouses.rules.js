@@ -1,17 +1,7 @@
-import { regexRules, logicRules } from "./base.rules.js";
+import { genericRules } from "./generic.rules.js";
+
 export const warehouseRule = {
-    WarehouseID: [
-        (v) => regexRules.warehouseID.test(v),
-        logicRules.notNull
-    ],
-    Location: [
-        logicRules.notNull,
-        (v) => logicRules.minLength(v, 3),
-        (v) => regexRules.address.test(v)
-    ],
-    Capacity: [
-        logicRules.notNull,
-        logicRules.isNumber,
-        logicRules.nonNegative
-    ]
-}
+  WarehouseID: genericRules.warehouseID(),
+  Location: genericRules.address({ minLength: 3 }),
+  Capacity: genericRules.nonNegativeNumber({ requireValue: true })
+};
