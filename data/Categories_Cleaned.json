@@ -1,57 +1,57 @@
 [
   {
-    "CategoryID": "C01",
-    "CategoryName": "Thời trang",
-    "ImportedAt": "2025-11-06 01:57:00",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
-    "CategoryID": "C02",
-    "CategoryName": "Điện tử",
-    "ImportedAt": "2025-11-06 01:57:00",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
     "CategoryID": "C10",
     "CategoryName": "Thiết bị",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
   {
-    "CategoryID": "C05",
-    "CategoryName": "Không xác định",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "CategoryID": "C01",
+    "CategoryName": "Thời trang",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
   {
     "CategoryID": "C03",
     "CategoryName": "Phụ kiện",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
   {
-    "CategoryID": "C08",
-    "CategoryName": "Điện tử",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "CategoryID": "C05",
+    "CategoryName": "Không xác định",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
   {
     "CategoryID": "C07",
     "CategoryName": "Thiếu ID",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "CategoryID": "C02",
+    "CategoryName": "Điện tử",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
   {
     "CategoryID": "C04",
     "CategoryName": "Gia dụng",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "CategoryID": "C08",
+    "CategoryName": "Điện tử",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   }

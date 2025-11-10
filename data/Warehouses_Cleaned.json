@@ -1,33 +1,9 @@
 [
   {
-    "WarehouseID": "W01",
-    "Location": "Hà Nội",
-    "Capacity": 500,
-    "ImportedAt": "2025-11-06 01:57:00",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
-    "WarehouseID": "W05",
-    "Location": "Hải Phòng",
-    "Capacity": 700,
-    "ImportedAt": "2025-11-06 01:57:00",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
-    "WarehouseID": "W07",
-    "Location": "Huế",
-    "Capacity": 300,
-    "ImportedAt": "2025-11-06 01:57:00",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
-    "WarehouseID": "W09",
-    "Location": "Nha Trang",
-    "Capacity": 900,
-    "ImportedAt": "2025-11-06 01:57:00",
+    "WarehouseID": "W02",
+    "Location": "HCM",
+    "Capacity": 1000,
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
@@ -35,15 +11,15 @@
     "WarehouseID": "W10",
     "Location": "Bắc Giang",
     "Capacity": 500,
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
   {
-    "WarehouseID": "W02",
-    "Location": "HCM",
-    "Capacity": 1000,
-    "ImportedAt": "2025-11-06 01:57:00",
+    "WarehouseID": "W01",
+    "Location": "Hà Nội",
+    "Capacity": 500,
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
@@ -51,7 +27,31 @@
     "WarehouseID": "W03",
     "Location": "Đà Nẵng",
     "Capacity": 0,
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "WarehouseID": "W05",
+    "Location": "Hải Phòng",
+    "Capacity": 700,
+    "ImportedAt": "2025-11-09 02:49:11",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "WarehouseID": "W07",
+    "Location": "Huế",
+    "Capacity": 300,
+    "ImportedAt": "2025-11-09 02:49:11",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "WarehouseID": "W09",
+    "Location": "Nha Trang",
+    "Capacity": 900,
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   }

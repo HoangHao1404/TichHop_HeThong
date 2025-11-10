@@ -5,17 +5,7 @@
     "Email": "a@gmail.com",
     "Phone": "0912345678",
     "Address": "Ha Noi",
-    "ImportedAt": "2025-11-06 01:57:00",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
-    "CustomerID": "C008",
-    "Name": "Hoang Bao H",
-    "Email": "h@gmail.com",
-    "Phone": "0988888888",
-    "Address": "Ha Noi",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
@@ -25,17 +15,7 @@
     "Email": "i@gmail.com",
     "Phone": "0900000000",
     "Address": "Da Nang",
-    "ImportedAt": "2025-11-06 01:57:00",
-    "Status": "pending",
-    "ErrorMessage": null
-  },
-  {
-    "CustomerID": "C010",
-    "Name": "Pham Nhu J",
-    "Email": "j@gmail.com",
-    "Phone": "0999999999",
-    "Address": "Ha Long",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   },
@@ -45,7 +25,27 @@
     "Email": "d@gmail.com",
     "Phone": "0987654321",
     "Address": "Can Tho",
-    "ImportedAt": "2025-11-06 01:57:00",
+    "ImportedAt": "2025-11-09 02:49:11",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "CustomerID": "C008",
+    "Name": "Hoang Bao H",
+    "Email": "h@gmail.com",
+    "Phone": "0988888888",
+    "Address": "Ha Noi",
+    "ImportedAt": "2025-11-09 02:49:11",
+    "Status": "pending",
+    "ErrorMessage": null
+  },
+  {
+    "CustomerID": "C010",
+    "Name": "Pham Nhu J",
+    "Email": "j@gmail.com",
+    "Phone": "0999999999",
+    "Address": "Ha Long",
+    "ImportedAt": "2025-11-09 02:49:11",
     "Status": "pending",
     "ErrorMessage": null
   }
