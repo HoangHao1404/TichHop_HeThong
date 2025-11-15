@@ -1,0 +1,4 @@
+table,rowNumber,recordID,errors
+shipments,5,DH010,"ShipperName không hợp lệ (giá trị: Unknown)"
+suppliers,6,S07,"Address không hợp lệ (giá trị: N/A)"
+suppliers,10,S03,"Address không hợp lệ (giá trị: N/A)"
