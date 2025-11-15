@@ -5,13 +5,13 @@ import sqlite3 from "sqlite3";
 import fs from "fs";
 
 
-// 1️⃣ Mở kết nối đến DB Staging
+// 1 Mở kết nối đến DB Staging
 const db = await open({
   filename: "./db/warehouse.db",
   driver: sqlite3.Database,
 });
 
-// 2️⃣ Danh sách bảng Staging cần kiểm tra
+// 2 Danh sách bảng Staging cần kiểm tra
 const tables = [
   "orders",
   "products",
@@ -23,7 +23,7 @@ const tables = [
   "warehouses",
 ];
 
-// 3️⃣ Chuẩn bị thư mục log
+// 3. Chuẩn bị thư mục log
 if (!fs.existsSync("./validation/logs"))
   fs.mkdirSync("./validation/logs", { recursive: true });
 
@@ -31,7 +31,7 @@ if (!fs.existsSync("./validation/logs"))
 fs.writeFileSync("./validation/logs/error.log", "");
 fs.writeFileSync("./validation/logs/etl.log", "");
 
-// 4️⃣ Chạy lần lượt từng bảng
+// 4 Chạy lần lượt từng bảng
 console.log("\n=============================");
 console.log("BẮT ĐẦU KIỂM TRA DỮ LIỆU...");
 console.log("=============================\n");
@@ -50,9 +50,7 @@ for (const table of tables) {
   const { validRows, errorRows } = validator.validateData(rows);
 
 //   // 4.4 Ghi log lỗi
-//  Validator.logErrors(errorRows); // ghi log lỗi
-// console.log(`${table}: Hợp lệ ${validRows.length} dòng | Lỗi ${errorRows.length} dòng`); // in console
-
+  Validator.logErrors(errorRows); // ghi log lỗi
   // 4.7 Ghi vào bảng tổng hợp
   summary.push({
     name: table,
@@ -61,7 +59,7 @@ for (const table of tables) {
   });
 }
 
-// 5️⃣ Ghi tổng kết ETL giống bản cũ
+// 5 Ghi tổng kết ETL giống bản cũ
 let report = `
 `;
 for (const s of summary) {
@@ -75,6 +73,6 @@ for (const s of summary) {
 fs.appendFileSync("./validation/logs/etl.log", report);
 console.log("\n" + report);
 
-// 6️⃣ Đóng DB
+// 6 Đóng DB
 await db.close();
 

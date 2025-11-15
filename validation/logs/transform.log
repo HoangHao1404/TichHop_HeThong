@@ -1,0 +1,28 @@
+[orders] Row 2 | ID: DH002 | Field: Quantity | Lỗi: không hợp lệ (giá trị: -1) | Fix: 1
+[orders] Row 3 | ID: DH006 | Field: Price | Lỗi: không hợp lệ (giá trị: ) | Fix: 100000
+[orders] Row 5 | ID: DH008 | Field: OrderDate | Lỗi: không hợp lệ (giá trị: 2025-13-01) | Fix: 2025-01-13
+[orders] Row 8 | ID: DH004 | Field: Quantity | Lỗi: không hợp lệ (giá trị: 0) | Fix: 1
+[orders] Row 9 | ID: DH005 | Field: Price | Lỗi: không hợp lệ (giá trị: 0) | Fix: 100000
+[products] Row 4 | ID: P007 | Field: Price | Lỗi: không hợp lệ (giá trị: ) | Fix: 150000
+[products] Row 7 | ID: P010 | Field: CategoryID | Lỗi: không hợp lệ (giá trị: ) | Fix: C99
+[products] Row 8 | ID: P004 | Field: StockQuantity | Lỗi: không hợp lệ (giá trị: -10) | Fix: 10
+[products] Row 9 | ID: P005 | Field: Price | Lỗi: không hợp lệ (giá trị: 0) | Fix: 150000
+[payments] Row 5 | ID: DH005 | Field: Amount | Lỗi: không hợp lệ (giá trị: 0) | Fix: 100000
+[payments] Row 7 | ID: DH004 | Field: Amount | Lỗi: không hợp lệ (giá trị: ) | Fix: 100000
+[payments] Row 9 | ID: DH002 | Field: Amount | Lỗi: không hợp lệ (giá trị: -250000) | Fix: 100000
+[shipments] Row 7 | ID: DH006 | Field: ShipDate | Lỗi: không hợp lệ (giá trị: 2025-13-06) | Fix: 2025-06-13
+[categories] Row 3 | ID: C06 | Field: CategoryName | Lỗi: không hợp lệ (giá trị: ) | Fix: Unknown Category
+[categories] Row 6 | ID: C09 | Field: CategoryName | Lỗi: không hợp lệ (giá trị: ) | Fix: Unknown Category
+[suppliers] Row 2 | ID: S02 | Field: Contact | Lỗi: không hợp lệ (giá trị: ) | Fix: 0900000000
+[suppliers] Row 3 | ID: S06 | Field: Contact | Lỗi: không hợp lệ (giá trị: 000) | Fix: 0900000000
+[suppliers] Row 4 | ID: S08 | Field: Name | Lỗi: không hợp lệ (giá trị: ) | Fix: Unknown Supplier
+[suppliers] Row 5 | ID: S09 | Field: Contact | Lỗi: không hợp lệ (giá trị: 09abc123) | Fix: 0900000000
+[suppliers] Row 9 | ID: S05 | Field: Contact | Lỗi: không hợp lệ (giá trị: ) | Fix: 0900000000
+[warehouses] Row 2 | ID: W04 | Field: Capacity | Lỗi: không hợp lệ (giá trị: -200) | Fix: 200
+[warehouses] Row 9 | ID: W08 | Field: Location | Lỗi: không hợp lệ (giá trị: ) | Fix: Unknown
+[warehouses] Row 10 | ID: W06 | Field: Capacity | Lỗi: không hợp lệ (giá trị: ) | Fix: 0
+[customers] Row 2 | ID: C003 | Field: Phone | Lỗi: không hợp lệ (giá trị: 01234) | Fix: 0900000000
+[customers] Row 3 | ID: C006 | Field: Email | Lỗi: không hợp lệ (giá trị: f@gmail) | Fix: f@gmail.com
+[customers] Row 4 | ID: C002 | Field: Email | Lỗi: không hợp lệ (giá trị: b_at_gmail.com) | Fix: b@gmail.com
+[customers] Row 8 | ID: C007 | Field: Phone | Lỗi: không hợp lệ (giá trị: notaphone) | Fix: 0900000000
+[customers] Row 10 | ID: C005 | Field: Email | Lỗi: không hợp lệ (giá trị: ) | Fix: unknown@gmail.com

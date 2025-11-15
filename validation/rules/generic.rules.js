@@ -7,7 +7,6 @@ const ensureString = (value) => {
   if (value instanceof String) return value.valueOf();
   return null;
 };
-
 const createRegexRule = (regex, { allowNull = false } = {}) => {
   const rules = [];
   if (!allowNull) {

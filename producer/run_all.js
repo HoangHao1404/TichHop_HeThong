@@ -14,10 +14,10 @@ const producers = [
 for (const file of producers) {
   exec(`node producer/${file}`, (err, stdout, stderr) => {
     if (err) {
-      console.error(`❌ Lỗi khi chạy ${file}:`, err.message);
+      console.error(` Lỗi khi chạy ${file}:`, err.message);
       return;
     }
-    console.log(`✅ ${file} hoàn tất`);
+    console.log(` ${file} hoàn tất`);
     if (stdout) console.log(stdout);
     if (stderr) console.error(stderr);
   });

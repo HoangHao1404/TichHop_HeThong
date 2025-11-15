@@ -1,0 +1,29 @@
+table,rowNumber,recordID,field,reason,newValue
+orders,2,DH002,Quantity,"không hợp lệ (giá trị: -1)",1
+orders,3,DH006,Price,"không hợp lệ (giá trị: )",100000
+orders,5,DH008,OrderDate,"không hợp lệ (giá trị: 2025-13-01)",2025-01-13
+orders,8,DH004,Quantity,"không hợp lệ (giá trị: 0)",1
+orders,9,DH005,Price,"không hợp lệ (giá trị: 0)",100000
+products,4,P007,Price,"không hợp lệ (giá trị: )",150000
+products,7,P010,CategoryID,"không hợp lệ (giá trị: )",C99
+products,8,P004,StockQuantity,"không hợp lệ (giá trị: -10)",10
+products,9,P005,Price,"không hợp lệ (giá trị: 0)",150000
+payments,5,DH005,Amount,"không hợp lệ (giá trị: 0)",100000
+payments,7,DH004,Amount,"không hợp lệ (giá trị: )",100000
+payments,9,DH002,Amount,"không hợp lệ (giá trị: -250000)",100000
+shipments,7,DH006,ShipDate,"không hợp lệ (giá trị: 2025-13-06)",2025-06-13
+categories,3,C06,CategoryName,"không hợp lệ (giá trị: )",Unknown Category
+categories,6,C09,CategoryName,"không hợp lệ (giá trị: )",Unknown Category
+suppliers,2,S02,Contact,"không hợp lệ (giá trị: )",0900000000
+suppliers,3,S06,Contact,"không hợp lệ (giá trị: 000)",0900000000
+suppliers,4,S08,Name,"không hợp lệ (giá trị: )",Unknown Supplier
+suppliers,5,S09,Contact,"không hợp lệ (giá trị: 09abc123)",0900000000
+suppliers,9,S05,Contact,"không hợp lệ (giá trị: )",0900000000
+warehouses,2,W04,Capacity,"không hợp lệ (giá trị: -200)",200
+warehouses,9,W08,Location,"không hợp lệ (giá trị: )",Unknown
+warehouses,10,W06,Capacity,"không hợp lệ (giá trị: )",0
+customers,2,C003,Phone,"không hợp lệ (giá trị: 01234)",0900000000
+customers,3,C006,Email,"không hợp lệ (giá trị: f@gmail)",f@gmail.com
+customers,4,C002,Email,"không hợp lệ (giá trị: b_at_gmail.com)",b@gmail.com
+customers,8,C007,Phone,"không hợp lệ (giá trị: notaphone)",0900000000
+customers,10,C005,Email,"không hợp lệ (giá trị: )",unknown@gmail.com

@@ -37,6 +37,7 @@ export class Validator {
       else errorRows.push({
         table: this.tableName,
         rowNumber: i + 1,
+        row,
         errors: result.errors
       });
     });
