@@ -1,7 +1,5 @@
 import { regexRules, logicRules } from "./base.rules.js";
-
 const isNil = (value) => value === null || value === undefined;
-
 const ensureString = (value) => {
   if (typeof value === "string") return value;
   if (value instanceof String) return value.valueOf();
@@ -22,16 +20,13 @@ const createRegexRule = (regex, { allowNull = false } = {}) => {
   });
   return rules;
 };
-
 const createIdRule = (regex, options) => createRegexRule(regex, options);
-
 const appendRequired = (rules, requireValue) => {
   if (requireValue) {
     return [logicRules.notNull, ...rules];
   }
   return rules;
 };
-
 export const genericRules = {
   // ID helpers
   productID: (options) => createIdRule(regexRules.productID, options),
@@ -42,7 +37,6 @@ export const genericRules = {
   supplierID: (options) => createIdRule(regexRules.supplierID, options),
   paymentID: (options) => createIdRule(regexRules.paymentID, options),
   warehouseID: (options) => createIdRule(regexRules.warehouseID, options),
-
   // Text helpers
   name: ({ minLength = 2 } = {}) => [
     logicRules.notNull,
@@ -105,7 +99,6 @@ export const genericRules = {
       [logicRules.isNumber, (value) => logicRules.between(value, min, max)],
       requireValue
     ),
-
   // Other helpers
   enum: (values, { allowNull = false } = {}) => {
     const rules = [];

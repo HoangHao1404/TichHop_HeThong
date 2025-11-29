@@ -18,7 +18,7 @@ async function consumeWarehouses() {
       const wh = JSON.parse(msg.content.toString());
       console.log("📥 Nhận Warehouse:", wh);
       const sql = `
-        INSERT INTO Warehouses_Staging
+        INSERT INTO Staging_Warehouses
         (WarehouseID, Location, Capacity)
         VALUES (?, ?, ?)
       `;
@@ -27,5 +27,4 @@ async function consumeWarehouses() {
     }
   });
 }
-
 consumeWarehouses().catch(console.error);

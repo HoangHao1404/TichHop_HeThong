@@ -18,7 +18,7 @@ async function consumeSuppliers() {
       const supplier = JSON.parse(msg.content.toString());
       console.log("📥 Nhận Supplier:", supplier);
       const sql = `
-        INSERT INTO Suppliers_Staging
+        INSERT INTO Staging_Suppliers
         (SupplierID, Name, Contact, Address)
         VALUES (?, ?, ?, ?)
       `;

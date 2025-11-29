@@ -18,7 +18,7 @@ async function consumeShipments() {
       const shipment = JSON.parse(msg.content.toString());
       console.log("📥 Nhận Shipment:", shipment);
       const sql = `
-  INSERT INTO Shipments_Staging
+  INSERT INTO Staging_Shipments
   (ShipmentID, OrderID, ShipperName, ShipDate, DeliveryStatus)
   VALUES (?, ?, ?, ?, ?)
 `;

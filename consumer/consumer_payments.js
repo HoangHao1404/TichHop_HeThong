@@ -18,7 +18,7 @@ async function consumePayments() {
       const payment = JSON.parse(msg.content.toString());
       console.log("📥 Nhận Payment:", payment);
       const sql = `
-        INSERT INTO Payments_Staging
+        INSERT INTO Staging_Payments
         (PaymentID, OrderID, PaymentMethod, Amount, PaymentDate)
         VALUES (?, ?, ?, ?, ?)
       `;

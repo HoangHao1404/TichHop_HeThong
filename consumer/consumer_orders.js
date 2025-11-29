@@ -18,7 +18,7 @@ async function consumeOrders() {
       const order = JSON.parse(msg.content.toString());
       console.log("📥 Nhận Order:", order);
       const sql = `
-        INSERT INTO Orders_Staging
+        INSERT INTO Staging_Orders
         (OrderID, ProductID, CustomerID, Quantity, Price, OrderDate)
         VALUES (?, ?, ?, ?, ?, ?)
       `;

@@ -1,6 +1,23 @@
 // validation/validator.js
 import fs from "fs";
 import { ruleSets } from "./rules/index.js";
+function logValidationError({ table, rowNumber, recordID, field, reason, value }) {
+  const line =
+    `[${table}] Row ${rowNumber} | ` +
+    `ID: ${recordID} | ` +
+    `Field: ${field} | ` +
+    `Lỗi: ${reason} (giá trị: ${value})\n`;
+
+  fs.appendFileSync("./validation/logs/error.log", line, "utf8");
+}
+function parseError(errString) {
+  if (!errString || typeof errString !== "string") {
+    return { field: "UNKNOWN", reason: errString || "" };
+  }
+  const field = errString.split(" ")[0];
+  const reason = errString.replace(field, "").trim();
+  return { field, reason };
+}
 
 export class Validator {
   constructor(tableName) {
@@ -44,11 +61,22 @@ export class Validator {
     return { validRows, errorRows };
   }
 
-  static logErrors(errorRows, path = "./validation/logs/error.log") {
-    if (errorRows.length === 0) return;
-    const lines = errorRows.map(
-      e => `[${e.table}] Row ${e.rowNumber}: ${e.errors.join("; ")}`
+static logErrors(errorRows, path="./validation/logs/error.log") {
+  if (!errorRows.length) return;
+
+  for (const e of errorRows) {
+    const msg = e.errors[0];
+    const field = msg.split(" ")[0];
+    const recordID =
+      e.row.OrderID || e.row.ProductID || e.row.PaymentID ||
+      e.row.CustomerID || e.row.ShipmentID || e.row.CategoryID ||
+      e.row.SupplierID || e.row.WarehouseID || "UNKNOWN";
+
+    fs.appendFileSync(path,
+      `[${e.table}] Row ${e.rowNumber} | ID: ${recordID} | Field: ${field} | Lỗi: ${msg.replace(field, "").trim()}\n`
     );
-    fs.appendFileSync(path, lines.join("\n") + "\n", "utf8");
   }
+}
+
+
 }

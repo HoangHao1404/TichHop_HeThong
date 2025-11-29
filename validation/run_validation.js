@@ -26,12 +26,14 @@ if (!fs.existsSync("./validation/logs"))
 fs.writeFileSync("./validation/logs/error.log", "");
 fs.writeFileSync("./validation/logs/etl.log", "");
 // 4 Chạy lần lượt từng bảng
-console.log("BẮT ĐẦU KIỂM TRA DỮ LIỆU...\n");
 const summary = [];
 for (const table of tables) {
   // 4.1 Đọc dữ liệu từ bảng Staging
-  const tableName = table.charAt(0).toUpperCase() + table.slice(1);
-  const rows = await db.all(`SELECT * FROM ${tableName}_Staging`);
+  const base = table.charAt(0).toUpperCase() + table.slice(1);
+const stagingTable = `Staging_${base}`;
+
+const rows = await db.all(`SELECT * FROM ${stagingTable}`);
+
   // 4.2 Khởi tạo validator
   const validator = new Validator(table);
   // 4.3 Chạy validate

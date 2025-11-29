@@ -18,7 +18,7 @@ async function consumeCategories() {
       const category = JSON.parse(msg.content.toString());
       console.log("📥 Nhận Category:", category);
       const sql = `
-        INSERT INTO Categories_Staging
+        INSERT INTO Staging_Categories
         (CategoryID, CategoryName)
         VALUES (?, ?)
       `;

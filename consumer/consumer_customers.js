@@ -18,7 +18,7 @@ async function consumeCustomers() {
       const customer = JSON.parse(msg.content.toString());
       console.log("📥 Nhận Customer:", customer);
       const sql = `
-        INSERT INTO Customers_Staging
+        INSERT INTO Staging_Customers
         (CustomerID, Name, Email, Phone, Address)
         VALUES (?, ?, ?, ?, ?)
       `;

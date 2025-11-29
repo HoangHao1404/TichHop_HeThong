@@ -26,7 +26,7 @@ async function consumeProducts() {
 
       // Ghi xuống bảng Products_Staging
       const sql = `
-        INSERT INTO Products_Staging
+        INSERT INTO Staging_Products
         (ProductID, Name, CategoryID, SupplierID, StockQuantity, Price)
         VALUES (?, ?, ?, ?, ?, ?)
       `;

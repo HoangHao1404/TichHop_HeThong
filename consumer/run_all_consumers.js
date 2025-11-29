@@ -9,15 +9,16 @@ async function cleanStaging() {
   });
 
   const tables = [
-    "Orders_Staging",
-    "Customers_Staging",
-    "Payments_Staging",
-    "Shipments_Staging",
-    "Products_Staging",
-    "Categories_Staging",
-    "Suppliers_Staging",
-    "Warehouses_Staging",
-  ];
+  "Staging_Orders",
+  "Staging_Customers",
+  "Staging_Payments",
+  "Staging_Shipments",
+  "Staging_Products",
+  "Staging_Categories",
+  "Staging_Suppliers",
+  "Staging_Warehouses",
+];
+
 
   for (const table of tables) {
     await db.run(`DELETE FROM ${table}`);
@@ -53,6 +54,6 @@ for (const file of consumers) {
   });
 
   process.on("exit", (code) => {
-    console.log(`⚙️ ${file} exited with code ${code}`);
+    console.log(`${file} exited with code ${code}`);
   });
 }
