@@ -3,6 +3,7 @@ import { Validator } from "./validator.js";
 import { open } from "sqlite";
 import sqlite3 from "sqlite3";
 import fs from "fs";
+import csv from "csv-parser";
 // 1 Mở kết nối đến DB Staging
 const db = await open({
   filename: "./db/warehouse.db",
@@ -37,7 +38,47 @@ const rows = await db.all(`SELECT * FROM ${stagingTable}`);
   // 4.2 Khởi tạo validator
   const validator = new Validator(table);
   // 4.3 Chạy validate
-  const { validRows, errorRows } = validator.validateData(rows);
+  const idKeyMap = {
+    orders: "OrderID",
+    products: "ProductID",
+    payments: "PaymentID",
+    customers: "CustomerID",
+    shipments: "ShipmentID",
+    categories: "CategoryID",
+    suppliers: "SupplierID",
+    warehouses: "WarehouseID",
+  };
+  const sourceTableMap = {
+    products: "Products",
+    categories: "Categories",
+    suppliers: "Suppliers",
+    warehouses: "Warehouses",
+  };
+  const idKey = idKeyMap[table];
+  const dataPath = `./data/${base}.csv`;
+  const idToRowNumber = {};
+  if (fs.existsSync(dataPath) && idKey) {
+    let line = 2;
+    await new Promise((resolve) => {
+      fs.createReadStream(dataPath)
+        .pipe(csv())
+        .on("data", (r) => {
+          const id = r[idKey];
+          if (id) idToRowNumber[id] = line;
+          line++;
+        })
+        .on("end", resolve);
+    });
+  } else if (sourceTableMap[table] && idKey) {
+    const srcTable = sourceTableMap[table];
+    const srcRows = await db.all(`SELECT ${idKey} AS id FROM ${srcTable} ORDER BY rowid`);
+    let line = 1;
+    for (const r of srcRows) {
+      if (r.id) idToRowNumber[r.id] = line;
+      line++;
+    }
+  }
+  const { validRows, errorRows } = validator.validateData(rows, { idToRowNumber });
   // 4.4 Ghi log lỗi
   Validator.logErrors(errorRows); // ghi log lỗi
   // 4.7 Ghi vào bảng tổng hợp

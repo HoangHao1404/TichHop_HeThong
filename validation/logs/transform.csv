@@ -1,2 +1,2 @@
 table,rowNumber,recordID,field,reason,newValue
-Customers,6,C002,Email,"không hợp lệ (giá trị: b_at_gmail.com)",b@gmail.com
+Customers,3,C002,Email,"không hợp lệ (giá trị: b_at_gmail.com)",b@gmail.com

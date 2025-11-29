@@ -255,6 +255,7 @@
 import fs from "fs";
 import { open } from "sqlite";
 import sqlite3 from "sqlite3";
+import csv from "csv-parser";
 
 import { Validator } from "./validator.js";
 import { Transformer } from "./transformer/transform.engine.js";
@@ -333,7 +334,47 @@ for (const table of tables) {
   // ===== Lấy dữ liệu từ Staging =====
   const rows = await db.all(`SELECT * FROM ${stagingTable}`);
   const validator = new Validator(table);
-  const { validRows, errorRows } = validator.validateData(rows);
+  const idKeyMap = {
+    orders: "OrderID",
+    products: "ProductID",
+    payments: "PaymentID",
+    customers: "CustomerID",
+    shipments: "ShipmentID",
+    categories: "CategoryID",
+    suppliers: "SupplierID",
+    warehouses: "WarehouseID",
+  };
+  const sourceTableMap = {
+    products: "Products",
+    categories: "Categories",
+    suppliers: "Suppliers",
+    warehouses: "Warehouses",
+  };
+  const idKey = idKeyMap[table];
+  const dataPath = `./data/${Base}.csv`;
+  const idToRowNumber = {};
+  if (fs.existsSync(dataPath) && idKey) {
+    let line = 2;
+    await new Promise((resolve) => {
+      fs.createReadStream(dataPath)
+        .pipe(csv())
+        .on("data", (r) => {
+          const id = r[idKey];
+          if (id) idToRowNumber[id] = line;
+          line++;
+        })
+        .on("end", resolve);
+    });
+  } else if (sourceTableMap[table] && idKey) {
+    const srcTable = sourceTableMap[table];
+    const srcRows = await db.all(`SELECT ${idKey} AS id FROM ${srcTable} ORDER BY rowid`);
+    let line = 1;
+    for (const r of srcRows) {
+      if (r.id) idToRowNumber[r.id] = line;
+      line++;
+    }
+  }
+  const { validRows, errorRows } = validator.validateData(rows, { idToRowNumber });
   console.log(`Hiện tại đang lỗi: ${errorRows.length}`);
   // Transform từng dòng lỗi
   const transformer = new Transformer(table);
@@ -354,14 +395,17 @@ for (const table of tables) {
       const { reason } = parseError(firstError);
 
       const recordID =
-        before.OrderID ||
-        before.ProductID ||
-        before.PaymentID ||
-        before.CustomerID ||
-        before.ShipmentID ||
-        before.CategoryID ||
-        before.SupplierID ||
-        before.WarehouseID ||
+        (table === "orders" && before.OrderID) ||
+        (table === "products" && before.ProductID) ||
+        (table === "payments" && (before.PaymentID || before.OrderID)) ||
+        (table === "customers" && before.CustomerID) ||
+        (table === "shipments" && (before.ShipmentID || before.OrderID)) ||
+        (table === "categories" && before.CategoryID) ||
+        (table === "suppliers" && before.SupplierID) ||
+        (table === "warehouses" && before.WarehouseID) ||
+        before.OrderID || before.ProductID || before.PaymentID ||
+        before.CustomerID || before.ShipmentID || before.CategoryID ||
+        before.SupplierID || before.WarehouseID ||
         "UNKNOWN";
 
       // ghi log transform
@@ -381,14 +425,17 @@ for (const table of tables) {
         table: Base,
         rowNumber: e.rowNumber,
         recordID:
-          e.row.OrderID ||
-          e.row.ProductID ||
-          e.row.PaymentID ||
-          e.row.CustomerID ||
-          e.row.ShipmentID ||
-          e.row.CategoryID ||
-          e.row.SupplierID ||
-          e.row.WarehouseID ||
+          (table === "orders" && e.row.OrderID) ||
+          (table === "products" && e.row.ProductID) ||
+          (table === "payments" && (e.row.PaymentID || e.row.OrderID)) ||
+          (table === "customers" && e.row.CustomerID) ||
+          (table === "shipments" && (e.row.ShipmentID || e.row.OrderID)) ||
+          (table === "categories" && e.row.CategoryID) ||
+          (table === "suppliers" && e.row.SupplierID) ||
+          (table === "warehouses" && e.row.WarehouseID) ||
+          e.row.OrderID || e.row.ProductID || e.row.PaymentID ||
+          e.row.CustomerID || e.row.ShipmentID || e.row.CategoryID ||
+          e.row.SupplierID || e.row.WarehouseID ||
           "UNKNOWN",
         errors: result.errors,
       });
